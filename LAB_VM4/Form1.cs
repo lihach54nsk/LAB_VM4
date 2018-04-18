@@ -20,30 +20,21 @@ namespace LAB_VM4
             InitializeComponent();
         }
 
-        public int N = 0;
-
-        private void DerivativeButton_Click(object sender, EventArgs e)
+        int N = 0;
+        
+        public void DerivativeButton_Click(object sender, EventArgs e)
         {
-            decimal[,] input = new decimal[2, N];
+            decimal[,] input = new decimal[2, N];            
 
             for (int i = 0; i < 2; i++)
             {
                 for (int j = 0; j < N; j++) input[i, j] = Convert.ToDecimal(dataGridView1[j, i].Value);
             }
 
-            Graphics graphics = CreateGraphics();
-            SolidBrush brush = new SolidBrush(Color.White);
-            Pen pen = new Pen(Color.Black);
-            PointF[] coords = new PointF[N];
-            int k = 0;
-
-            pen.Width = 1;
-            graphics.FillRectangle(brush, new RectangleF(12, 150, 400, 400));
-
             foreach (var result in Derivative.FindDerivative(input))
-            { coords[k].X = (float)result.x; coords[k].Y = (float)result.y; k++; }
-
-            graphics.DrawCurve(pen, coords);
+            {
+                chart1.Series[0].Points.AddXY(result.x, result.y);
+            }
         }
 
         private void EnterButton_Click(object sender, EventArgs e)
