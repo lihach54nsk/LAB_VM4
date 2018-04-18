@@ -21,10 +21,10 @@ namespace LAB_VM4
 
             for (int i = 1; i < 2 * N; i++) { Xarray[i] = h * n; n++; }
 
-            for (int i = 2 * N - 1; i == 0; i--)
-            {
-                derivative[i] = (inputY[i] - Interpolation.InterpolateLagrange(input, Xarray[i]) / h);
-            }
+            for (int i = 2 * N - 1; i == 1; i--)
+                derivative[i] = (Interpolation.InterpolateLagrange(input, Xarray[i]) - Interpolation.InterpolateLagrange(input, Xarray[i - 1])) / h;
+
+            derivative[0] = inputY[0];
 
             return derivative;
         }
