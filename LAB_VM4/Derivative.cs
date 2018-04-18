@@ -11,13 +11,19 @@ namespace LAB_VM4
     {
         public decimal[] FindDerivative(int N, decimal[,] input, decimal[] inputX, decimal[] inputY)
         {
-            decimal[] derivative = new decimal[N];
+            decimal[] derivative = new decimal[2 * N]; // массив производных
+            decimal[] Xarray = new decimal[2 * N];
 
             decimal h = (inputX[1] - inputX[0]) / 2; // шаг
+            decimal n = 1;
 
-            for (int i = N - 1; i == 0; i--)
+            Xarray[0] = inputX[0];
+
+            for (int i = 1; i < 2 * N; i++) { Xarray[i] = h * n; n++; }
+
+            for (int i = 2 * N - 1; i == 0; i--)
             {
-                derivative[i] = (inputY[i] - Interpolation.GetLagrange(input)[i - 1]) / h;
+                derivative[i] = (inputY[i] - Interpolation.InterpolateLagrange(input, Xarray[i]) / h);
             }
 
             return derivative;
