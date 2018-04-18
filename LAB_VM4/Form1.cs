@@ -26,7 +26,6 @@ namespace LAB_VM4
         {
             decimal[,] input = new decimal[2, N];
 
-
             for (int i = 0; i < 2; i++)
             {
                 for (int j = 0; j < N; j++) input[i, j] = Convert.ToDecimal(dataGridView1[j, i].Value);
