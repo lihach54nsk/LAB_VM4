@@ -38,7 +38,7 @@ namespace LAB_VM4
             int k = 0;
 
             pen.Width = 1;
-            graphics.FillRectangle(brush, new RectangleF(12, 150, 400, 300));
+            graphics.FillRectangle(brush, new RectangleF(12, 150, 400, 400));
 
             foreach (var result in Derivative.FindDerivative(input))
             { coords[k].X = (float)result.x; coords[k].Y = (float)result.y; k++; }
