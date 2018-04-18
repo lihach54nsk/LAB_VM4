@@ -67,7 +67,7 @@ namespace UnitTestProject1
             {
                 for (int j = 0; j < value.GetLength(1); j++)
                 {
-                    if (Abs(value[i,j] - outputSplineFull2[i,j]) > accuracy)
+                    if (Abs(value[i, j] - outputSplineFull2[i, j]) > accuracy)
                         Assert.Fail(Abs(value[i, j] - outputSplineFull2[i, j]).ToString());
                 }
             }
