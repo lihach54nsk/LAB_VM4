@@ -8,10 +8,10 @@ namespace Lab4_VM_Test
     public class DerivativeTestDouble
     {
         double[,] testData1 =
-           {
+        {
                 {0, 2, 4},
                 {0, 2, 4}
-            };
+        };
 
         double accuracy = 0.001;
 
@@ -66,5 +66,3 @@ namespace Lab4_VM_Test
         }
     }
 }
-
-
