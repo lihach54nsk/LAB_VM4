@@ -29,23 +29,38 @@ namespace LAB_VM4
             return derivative;
         }
 
-        public static IEnumerable<(decimal x,decimal y)> FindDerivativeAlternative(decimal[,] input)
+        /// <summary>
+        /// Ищет производную по заданному набору значений, используя указанный шаг
+        /// </summary>
+        /// <param name="input">Таблица значений XY</param>
+        /// <returns></returns>
+        public static IEnumerable<(decimal x,decimal y)> FindDerivative(decimal[,] input, decimal step)
         {
             if (input.GetLength(0) != 2) throw new FormatException();
+            if (step > input[0, 1] - input[0, 0]) throw new FormatException();
 
             var length = input.GetLength(1);
 
-            var h = (input[0,1] - input[0,0]) / 2; // шаг
-
             var lagKoeff = Interpolation.GetLagrange(input);
 
-            for (var x = input[0, 0]; x < input[0, length - 1]; x += h)
+            for (var x = input[0, 0]; x < input[0, length - 1]; x += step)
             {
                 var y0 = Interpolation.InterpolateLagrange(lagKoeff, x);
-                var y1 = Interpolation.InterpolateLagrange(lagKoeff, x + h);
-                var derivative = (y1 - y0) / h;
+                var y1 = Interpolation.InterpolateLagrange(lagKoeff, x + step);
+                var derivative = (y1 - y0) / step;
                 yield return (x, derivative);
             }
+        }
+
+        /// <summary>
+        /// Ищет производную по заданному набору значений, используя шаг 
+        /// равный половине шага таблицы
+        /// </summary>
+        /// <param name="input">Таблица значений XY</param>
+        /// <returns></returns>
+        public static IEnumerable<(decimal x, decimal y)> FindDerivative(decimal[,] input)
+        {
+            return FindDerivative(input, (input[0,1] - input[0,0]) / 2);
         }
     }
 }

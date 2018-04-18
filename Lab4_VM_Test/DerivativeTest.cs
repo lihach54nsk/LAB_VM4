@@ -20,7 +20,25 @@ namespace Lab4_VM_Test
         {
             var accuracy = 0.001m;
             var validValue = 1.0m;
-            foreach (var (x, y) in Derivative.FindDerivativeAlternative(testData1))
+            foreach (var (x, y) in Derivative.FindDerivative(testData1))
+                if (Abs(y - validValue) > accuracy) Assert.Fail();
+        }
+
+        [TestMethod]
+        public void DerivativeTest2()
+        {
+            var accuracy = 0.001m;
+            var validValue = 1.0m;
+            foreach (var (x, y) in Derivative.FindDerivative(testData1, 0.1m))
+                if (Abs(y - validValue) > accuracy) Assert.Fail();
+        }
+
+        [TestMethod]
+        public void DerivativeTest3()
+        {
+            var accuracy = 0.001m;
+            var validValue = 1.0m;
+            foreach (var (x, y) in Derivative.FindDerivative(testData1, 1.5m))
                 if (Abs(y - validValue) > accuracy) Assert.Fail();
         }
     }
