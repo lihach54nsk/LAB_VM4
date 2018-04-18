@@ -43,10 +43,10 @@ namespace LAB_VM4
 
             var lagKoeff = Interpolation.GetLagrange(input);
 
-            for (var x = input[0, 0]; x < input[0, length - 1]; x += step)
+            for (var x = input[0, length - 1] ; x > input[0, 0]; x -= step)
             {
-                var y0 = Interpolation.InterpolateLagrange(lagKoeff, x);
-                var y1 = Interpolation.InterpolateLagrange(lagKoeff, x + step);
+                var y0 = Interpolation.InterpolateLagrange(lagKoeff, x-step);
+                var y1 = Interpolation.InterpolateLagrange(lagKoeff, x);
                 var derivative = (y1 - y0) / step;
                 yield return (x, derivative);
             }
@@ -71,7 +71,7 @@ namespace LAB_VM4
         /// <param name="step">Шаг</param>
         public static IEnumerable<(decimal x, decimal y)> FindDerivative(decimal[,] input, int degree, decimal step)
         {
-            if (degree < 1) throw new FormatException();
+            if (degree < 1) throw new FormatException(degree.ToString());
 
             if (degree == 1) return FindDerivative(input, step);
 
