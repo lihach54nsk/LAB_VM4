@@ -7,9 +7,9 @@ using Lab3_VM;
 
 namespace LAB_VM4
 {
-    public class Derivative
+    public static class Derivative
     {
-        public decimal[] FindDerivative(int N, decimal[,] input, decimal[] inputX, decimal[] inputY)
+        public static decimal[] FindDerivative(int N, decimal[,] input, decimal[] inputX, decimal[] inputY)
         {
             decimal[] derivative = new decimal[2 * N]; // массив производных
             decimal[] Xarray = new decimal[2 * N];
@@ -27,6 +27,25 @@ namespace LAB_VM4
             }
 
             return derivative;
+        }
+
+        public static IEnumerable<(decimal x,decimal y)> FindDerivativeAlternative(decimal[,] input)
+        {
+            if (input.GetLength(0) != 2) throw new FormatException();
+
+            var length = input.GetLength(1);
+
+            var h = (input[0,1] - input[0,0]) / 2; // шаг
+
+            var lagKoeff = Interpolation.GetLagrange(input);
+
+            for (var x = input[0, 0]; x < input[0, length - 1]; x += h)
+            {
+                var y0 = Interpolation.InterpolateLagrange(lagKoeff, x);
+                var y1 = Interpolation.InterpolateLagrange(lagKoeff, x + h);
+                var derivative = (y1 - y0) / h;
+                yield return (x, derivative);
+            }
         }
     }
 }
