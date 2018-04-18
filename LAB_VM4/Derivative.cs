@@ -43,7 +43,7 @@ namespace LAB_VM4
 
             var lagKoeff = Interpolation.GetLagrange(input);
 
-            for (var x = step + input[0, 0] ; x < input[0, length - 1]; x += step)
+            for (var x = input[0,0] ; x < input[0, length - 1]+step; x += step)
             {
                 var y0 = Interpolation.InterpolateLagrange(lagKoeff, x-step);
                 var y1 = Interpolation.InterpolateLagrange(lagKoeff, x);
