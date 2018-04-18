@@ -24,7 +24,8 @@ namespace LAB_VM4
         
         public void DerivativeButton_Click(object sender, EventArgs e)
         {
-            decimal[,] input = new decimal[2, N];            
+            decimal[,] input = new decimal[2, N];
+
 
             for (int i = 0; i < 2; i++)
             {
