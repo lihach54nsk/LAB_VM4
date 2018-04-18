@@ -36,14 +36,14 @@ namespace LAB_VM4
         /// <returns></returns>
         public static IEnumerable<(decimal x,decimal y)> FindDerivative(decimal[,] input, decimal step)
         {
-            if (input.GetLength(0) != 2) throw new FormatException();
-            if (step > input[0, 1] - input[0, 0]) throw new FormatException();
+            if (input.GetLength(0) != 2) throw new FormatException("Length error");
+            if (step > input[0, 1] - input[0, 0]) throw new FormatException("Step error "+step.ToString()+' '+(input[0, 1] - input[0, 0]).ToString());
 
             var length = input.GetLength(1);
 
             var lagKoeff = Interpolation.GetLagrange(input);
 
-            for (var x = input[0, length - 1] ; x > input[0, 0]; x -= step)
+            for (var x = step + input[0, 0] ; x < input[0, length - 1]; x += step)
             {
                 var y0 = Interpolation.InterpolateLagrange(lagKoeff, x-step);
                 var y1 = Interpolation.InterpolateLagrange(lagKoeff, x);
@@ -92,7 +92,7 @@ namespace LAB_VM4
                 {
                     (poolInput[0, j], poolInput[1, j]) = (poolList[j].x, poolList[j].y);
                 }
-
+                step /= 2.0m;
                 poolList.Clear();
             }
 
