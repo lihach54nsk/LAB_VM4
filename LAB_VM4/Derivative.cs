@@ -62,5 +62,51 @@ namespace LAB_VM4
         {
             return FindDerivative(input, (input[0,1] - input[0,0]) / 2);
         }
+
+        /// <summary>
+        /// Ищет производную указанного порядка с указанным шагом по заданной таблице значений XY
+        /// </summary>
+        /// <param name="input">Таблица значений XY</param>
+        /// <param name="degree">Порядок</param>
+        /// <param name="step">Шаг</param>
+        public static IEnumerable<(decimal x, decimal y)> FindDerivative(decimal[,] input, int degree, decimal step)
+        {
+            if (degree < 1) throw new FormatException();
+
+            if (degree == 1) return FindDerivative(input, step);
+
+            var poolInput = input;
+            var poolList = new List<(decimal x, decimal y)>();
+
+            for (var i = 0; i < degree - 1; i++)
+            {
+
+                foreach (var a in FindDerivative(poolInput, step))
+                {
+                    poolList.Add(a);
+                }
+
+                poolInput = new decimal[2, poolList.Count];
+
+                for (var j = 0; j < poolList.Count; j++)
+                {
+                    (poolInput[0, j], poolInput[1, j]) = (poolList[j].x, poolList[j].y);
+                }
+
+                poolList.Clear();
+            }
+
+            return FindDerivative(poolInput, step);
+        }
+
+        /// <summary>
+        /// Ищет производную указанного порядка по заданной таблице значений XY со стандартным шагом
+        /// </summary>
+        /// <param name="input">Таблица значений XY</param>
+        /// <param name="degree">Порядок</param>
+        public static IEnumerable<(decimal x, decimal y)> FindDerivative(decimal[,] input, int degree)
+        {
+            return FindDerivative(input, degree, (input[0, 1] - input[0, 0]) / 2);
+        }
     }
 }
