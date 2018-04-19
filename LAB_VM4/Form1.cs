@@ -31,9 +31,9 @@ namespace LAB_VM4
                 for (int j = 0; j < N; j++) input[i, j] = Convert.ToDecimal(dataGridView1[j, i].Value);
             }
 
-            foreach (var result in Derivative.FindDerivative(input))
+            foreach (var (x, y) in Derivative.FindDerivative(input))
             {
-                chart1.Series[0].Points.AddXY(result.x, result.y);
+                chart1.Series[0].Points.AddXY(x, y);
             }
         }
 
