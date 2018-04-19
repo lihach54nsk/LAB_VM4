@@ -25,13 +25,14 @@ namespace LAB_VM4
         public void DerivativeButton_Click(object sender, EventArgs e)
         {
             decimal[,] input = new decimal[2, N];
+            chart1.Series[0].Points.Clear();
 
             for (int i = 0; i < 2; i++)
             {
                 for (int j = 0; j < N; j++) input[i, j] = Convert.ToDecimal(dataGridView1[j, i].Value);
             }
 
-            foreach (var result in Derivative.FindDerivative(input))
+            foreach (var result in Derivative.FindDerivative(input, Convert.ToInt32(DegreeTextBox.Text)))
             {
                 chart1.Series[0].Points.AddXY(result.x, result.y);
             }
