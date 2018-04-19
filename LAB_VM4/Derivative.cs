@@ -92,7 +92,6 @@ namespace LAB_VM4
                 {
                     (poolInput[0, j], poolInput[1, j]) = (poolList[j].x, poolList[j].y);
                 }
-                step /= 2.0m;
                 poolList.Clear();
             }
 
